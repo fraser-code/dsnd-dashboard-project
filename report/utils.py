@@ -1,19 +1,20 @@
 import pickle
+import sqlite3
 from pathlib import Path
 
-# Using the Path object, create a `project_root` variable
-# set to the absolute path for the root of this project directory
-#### YOUR CODE HERE
- 
-# Using the `project_root` variable
-# create a `model_path` variable
-# that points to the file `model.pkl`
-# inside the assets directory
-#### YOUR CODE HERE
+project_root = Path(__file__).resolve().parent.parent
+
+model_path = project_root / "assets/model.pkl"
+db_path = project_root / "python-package/employee_events/employee_events.db"
+
 
 def load_model():
-
-    with model_path.open('rb') as file:
+    """Load and return the trained model from a pickle file."""
+    with model_path.open("rb") as file:
         model = pickle.load(file)
-
     return model
+
+
+def connect_db():
+    """Establish and return a connection to the SQLite database."""
+    return sqlite3.connect(db_path)
